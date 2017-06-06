@@ -7,6 +7,8 @@ import Dispatch
 public func after(interval: TimeInterval) -> Promise<Void> {
     return Promise { fulfill, _ in
         let when = DispatchTime.now() + interval
-        DispatchQueue.global().asyncAfter(deadline: when, execute: fulfill)
+        DispatchQueue.global().asyncAfter(deadline: when) {
+            fulfill(())
+        }
     }
 }
